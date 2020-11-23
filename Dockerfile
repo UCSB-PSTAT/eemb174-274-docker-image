@@ -1,6 +1,5 @@
-#FROM jupyter/r-notebook:6d42503c684f
-FROM jupyter/r-notebook:4a112c0f11eb 
-
+FROM jupyter/r-notebook:6d42503c684f
+ 
 LABEL maintainer="Alexander Franks <amfranks@ucsb.edu>"
 
 USER root
@@ -134,10 +133,14 @@ RUN R -e "install.packages(c('rstantools', 'shinystan'))"
 
 RUN R -e "dotR <- file.path(Sys.getenv('HOME'), '.R'); if(!file.exists(dotR)){ dir.create(dotR) }; M <- file.path(dotR, 'Makevars'); if (!file.exists(M)){  file.create(M) }; cat('\nCXX14FLAGS=-O3 -Wno-unused-variable -Wno-unused-function', 'CXX14 = g++ -std=c++1y', file = M, sep = '\n', append = TRUE)"
 
-RUN R -e "install.packages(c('coda','mvtnorm','loo','dagitty'))"
-
-Run R -e "devtools::install_github('rmcelreath/rethinking')"
+# Editions made for eemb specific build 
+RUN R -e "install.packages(c('coda','mvtnorm','loo','dagitty','ggplot2'))"
+# End of eemb specific build commands
 
 USER $NB_USER
+
+# Editions made for eemb specific build
+Run R -e "devtools::install_github('rmcelreath/rethinking')"
+# End of eemb specific build commands
 
 RUN R -e "devtools::install_github('ucbds-infra/ottr@0.0.2')"
