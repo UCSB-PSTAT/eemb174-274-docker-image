@@ -1,4 +1,4 @@
-FROM ucsb/pstat-115:v20201113.1
+FROM ucsb/pstat-115:v20201013.1
  
 LABEL maintainer="Patrick Windmiller <windmiller@pstat.ucsb.edu>"
 
