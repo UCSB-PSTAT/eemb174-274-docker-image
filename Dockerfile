@@ -33,7 +33,7 @@ RUN R -e "install.packages(c('codetools'))"
 RUN R --vanilla -e "install.packages('caret',repos='https://cloud.r-project.org')"
 RUN R -e "install.packages(c('car','ensembleR','MLmetrics','pROC','ROCR','Rtsne','NbClust'))"
 
-RUN apt-get update && apt-get install -o Dpkg::Options::="--force-overwrite" install --fix-broken -y \
+RUN apt-get update && apt-get install -o Dpkg::Options::="--force-overwrite" --fix-broken -y \
     nano && \
     apt-get clean && rm -rf /var/lib/lists/*
 
