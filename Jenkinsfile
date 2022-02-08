@@ -14,6 +14,7 @@ pipeline {
                 stage('Test') {
                     steps {
                         sh 'podman run -it --rm localhost/eemb174 R -e "library(\"cmdstanr\");library(\"lme4\");library(\"rstan\")"'
+                        sh 'podman run -it --rm localhost/eemb174 which nano'
                     }
                 
                 }
