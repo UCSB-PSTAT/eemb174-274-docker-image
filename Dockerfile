@@ -40,7 +40,7 @@ RUN R -e "install.packages(c('codetools'))"
 RUN R --vanilla -e "install.packages('caret',repos='https://cloud.r-project.org')"
 RUN R -e "install.packages(c('car','ensembleR','MLmetrics','pROC','ROCR','Rtsne','NbClust'))"
 
-RUN R -e "install.packages(c('tree','maptree','arm','e1071','elasticnet','fitdistrplus','gam','gamlss','glmnet','lme4','ltm','randomForest','rpart','ISLR'))"
+RUN R -e "install.packages(c('tree','maptree','arm','e1071','elasticnet','fitdistrplus','gam','gamlss','glmnet','ltm','randomForest','rpart','ISLR'))"
 
 #-- More Bayes stuff
 
