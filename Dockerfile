@@ -44,8 +44,7 @@ RUN R -e "install.packages(c('tree','maptree','arm','e1071','elasticnet','fitdis
 
 #-- More Bayes stuff
 
-RUN rm -rf /opt/microsoft/ropen/4.0.2/lib64/R/library/coda/
-RUN R -e "install.packages(c('coda','projpred','MCMCpack','hflights','HDInterval','tidytext','dendextend','LearnBayes'))"
+RUN R -e "install.packages(c('projpred','MCMCpack','hflights','HDInterval','tidytext','dendextend','LearnBayes'))"
 
 RUN R -e "install.packages(c('rstantools', 'shinystan'))"
 
