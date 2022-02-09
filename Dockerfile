@@ -48,8 +48,7 @@ RUN R -e "install.packages(c('projpred','MCMCpack','hflights','HDInterval','tidy
 
 RUN R -e "install.packages(c('rstantools', 'shinystan'))"
 
-RUN rm -rf /opt/microsoft/ropen/4.0.2/lib64/R/library/mvtnorm
-RUN R -e "install.packages(c('mvtnorm','loo','dagitty','tidyverse'))"
+RUN R -e "install.packages(c('loo','dagitty','tidyverse'))"
 
 RUN R -e "install.packages('cmdstanr', repos = 'https://mc-stan.org/r-packages/')"
 
