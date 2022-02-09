@@ -4,6 +4,13 @@ LABEL maintainer="Patrick Windmiller <windmiller@pstat.ucsb.edu>"
 
 USER root
 
+RUN apt update && apt install -y \
+    nano \
+    libpixman-1-dev \
+    libcairo2-dev \
+    libxt-dev && \
+    apt-get clean 
+
 #-- RSTAN
 #-- install rstan reqs
 RUN R -e "install.packages(c('inline','gridExtra','loo'))"
@@ -33,10 +40,6 @@ RUN R -e "install.packages(c('codetools'))"
 RUN R --vanilla -e "install.packages('caret',repos='https://cloud.r-project.org')"
 RUN R -e "install.packages(c('car','ensembleR','MLmetrics','pROC','ROCR','Rtsne','NbClust'))"
 
-RUN apt-get update && apt-get install -o Dpkg::Options::="--force-overwrite" --fix-broken -y \
-    nano && \
-    apt-get clean && rm -rf /var/lib/lists/*
-
 RUN R -e "install.packages(c('tree','maptree','arm','e1071','elasticnet','fitdistrplus','gam','gamlss','glmnet','lme4','ltm','randomForest','rpart','ISLR'))"
 
 #-- More Bayes stuff
@@ -53,13 +56,6 @@ RUN R -e "devtools::install_github('rmcelreath/rethinking', upgrade = c('never')
 
 RUN R -e "install.packages('cmdstanr', repos = 'https://mc-stan.org/r-packages/')"
 
-#-- Cairo
-#-- Cairo Requirements
-RUN apt-get update && apt-get install -y \
-    libpixman-1-dev \
-    libcairo2-dev \
-    libxt-dev && \
-    apt-get clean && rm -rf /var/lib/lists/*
 RUN R -e "install.packages(c('Cairo'))"
 
 USER $NB_USER
