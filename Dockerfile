@@ -48,7 +48,7 @@ RUN R -e "install.packages(c('projpred','MCMCpack','hflights','HDInterval','tidy
 
 RUN R -e "install.packages(c('rstantools', 'shinystan'))"
 
-RUN R -e "install.packages(c('loo','dagitty','tidyverse'))"
+RUN R -e "install.packages(c('posterior','dagitty','tidyverse'))"
 
 RUN R -e "install.packages('cmdstanr', repos = 'https://mc-stan.org/r-packages/')"
 
