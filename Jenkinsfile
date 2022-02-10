@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Build and Test') {
+        stage('Build Test Deploy') {
             agent {
                 label 'jupyter'
             }
@@ -15,9 +15,18 @@ pipeline {
                     steps {
                         sh 'podman run -it --rm localhost/eemb174 R -e "library(\"cmdstanr\");library(\"lme4\");library(\"rstan\");library(\"coda\");library(\"mvtnorm\")"'
                         sh 'podman run -it --rm localhost/eemb174 which nano'
-                    }
-                
+                    }                
                 }
+                stage('Deploy') {
+                    when { branch 'main' }
+                    environment {
+                        DOCKER_HUB_CREDS = credentials('DockerHubToken')
+                    }
+                    steps {
+                        sh 'podman login -u="${DOCKER_HUB_CREDS_USR}" -p="${DOCKER_HUB_CREDS_PWD}" docker.io'
+                        sh 'skopeo copy containers-storage:localhost/eemb174 docker.io/ucsb/eemb174-274'
+                    }
+                }                
             }
         }
     }
