@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        IMAGE_NAME = eemb174-274
+        IMAGE_NAME = 'eemb174-274'
     }
     stages {
         stage('Build Test Deploy') {
