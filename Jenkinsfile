@@ -24,7 +24,7 @@ pipeline {
                     }
                     steps {
                         sh 'podman login -u="${DOCKER_HUB_CREDS_USR}" -p="${DOCKER_HUB_CREDS_PWD}" docker.io'
-                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274'
+                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274 || skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274'
                     }
                 }                
             }
