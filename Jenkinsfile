@@ -23,7 +23,7 @@ pipeline {
                         DOCKER_HUB_CREDS = credentials('DockerHubToken')
                     }
                     steps {
-                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274 --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PWD'
+                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274 --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PWD --additional-tag=v$(date "+%Y%m%d")'
                     }
                 }                
             }
