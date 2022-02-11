@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    environment {
+        IMAGE_NAME = eemb174-274
+    }
     stages {
         stage('Build Test Deploy') {
             agent {
@@ -8,13 +11,13 @@ pipeline {
             stages{
                 stage('Build') {
                     steps {
-                        sh 'podman build -t eemb174 --pull  --no-cache .'
+                        sh 'podman build -t $IMAGE_NAME --pull  --no-cache .'
                      }
                 }
                 stage('Test') {
                     steps {
-                        sh 'podman run -it --rm localhost/eemb174 R -e "library(\"cmdstanr\");library(\"lme4\");library(\"rstan\");library(\"coda\");library(\"mvtnorm\")"'
-                        sh 'podman run -it --rm localhost/eemb174 which nano'
+                        sh 'podman run -it --rm localhost/$IMAGE_NAME R -e "library(\"cmdstanr\");library(\"lme4\");library(\"rstan\");library(\"coda\");library(\"mvtnorm\")"'
+                        sh 'podman run -it --rm localhost/$IMAGE_NAME which nano'
                     }                
                 }
                 stage('Deploy') {
@@ -23,8 +26,8 @@ pipeline {
                         DOCKER_HUB_CREDS = credentials('DockerHubToken')
                     }
                     steps {
-                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274:latest --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
-                        sh 'skopeo copy containers-storage:localhost/eemb174 docker://docker.io/ucsb/eemb174-274:v$(date "+%Y%m%d") --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
+                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://docker.io/ucsb/$IMAGE_NAME:latest --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
+                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://docker.io/ucsb/$IMAGE_NAME:v$(date "+%Y%m%d") --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
                     }
                 }                
             }
